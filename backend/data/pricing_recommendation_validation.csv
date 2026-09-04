@@ -1,0 +1,8 @@
+Category,Market_Position,Price_Gap_Percent,Priority,Validation_Status,Validation_Reason
+Beauty,Below Competitor,-59.16,High,PASS,Below-competitor recommendation is consistent with the negative price gap.
+Books,Below Competitor,-56.78,High,PASS,Below-competitor recommendation is consistent with the negative price gap.
+Clothing,Below Competitor,-73.98,Medium,PASS,Below-competitor recommendation is consistent with the negative price gap.
+Electronics,Insufficient Comparable Data,,Low,PASS,Insufficient comparable data correctly prevents automated pricing changes.
+Home & Kitchen,No competitor data,,Low,PASS,No competitor data correctly results in a monitoring recommendation.
+Sports,Below Competitor,-84.41,High,PASS,Below-competitor recommendation is consistent with the negative price gap.
+Toys,No competitor data,,Low,PASS,No competitor data correctly results in a monitoring recommendation.

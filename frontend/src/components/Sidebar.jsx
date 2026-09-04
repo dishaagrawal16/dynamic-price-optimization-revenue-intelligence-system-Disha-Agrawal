@@ -4,6 +4,8 @@ import {
   FaBox,
   FaRobot,
   FaChartBar,
+  FaChartArea,
+  FaStore,
   FaSignOutAlt,
 } from "react-icons/fa";
 
@@ -45,6 +47,22 @@ function Sidebar() {
           <FaRobot />
           Prediction
         </Link>
+
+        <Link
+          to="/demand-forecast"
+          className="flex items-center gap-3 px-6 py-4 hover:bg-blue-600 transition"
+          >
+          <FaChartArea />
+          Demand Forecast
+        </Link>
+
+        <Link
+  to="/competitor-analysis"
+  className="flex items-center gap-3 px-6 py-4 hover:bg-blue-600 transition"
+>
+  <FaStore />
+  Competitor Analysis
+</Link>
 
         <Link
           to="/analytics"

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -9,29 +8,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { getCategoryRevenue } from "../services/dashboardService";
-
-function DemandChart() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetchCategoryRevenue();
-  }, []);
-
-  const fetchCategoryRevenue = async () => {
-    try {
-      const response = await getCategoryRevenue();
-
-      const formattedData = response.map((item) => ({
-        category: item.category,
-        revenue: item.revenue,
-      }));
-
-      setData(formattedData);
-    } catch (error) {
-      console.error("Error fetching category revenue:", error);
-    }
-  };
+function DemandChart({ data }) {
+  const formattedData = data.map((item) => ({
+    category: item.category,
+    revenue: item.revenue,
+  }));
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6">
@@ -40,13 +21,10 @@ function DemandChart() {
       </h2>
 
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
+        <BarChart data={formattedData}>
           <CartesianGrid strokeDasharray="3 3" />
-
           <XAxis dataKey="category" />
-
           <YAxis />
-
           <Tooltip />
 
           <Bar

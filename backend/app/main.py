@@ -5,8 +5,12 @@ from app.models.product import Product
 from app.api.products import router as product_router
 from app.api import auth
 from app.api.dashboard import router as dashboard_router
-# Create tables
-
+from app.api.prediction import router as prediction_router
+from app.api.forecast import router as forecast_router
+from app.api.competitor import router as competitor_router
+from app.api.profitability import router as profitability_router
+from app.api.pricing_strategy import router as pricing_strategy_router
+from app.api.executive_report import router as executive_report_router
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -19,6 +23,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
+        "http://localhost:5174",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -27,6 +32,16 @@ app.add_middleware(
 app.include_router(product_router)
 app.include_router(auth.router)
 app.include_router(dashboard_router)
+app.include_router(prediction_router)
+app.include_router(forecast_router)
+app.include_router(competitor_router)
+app.include_router(profitability_router)
+app.include_router(
+    pricing_strategy_router
+)
+app.include_router(
+    executive_report_router
+)
 @app.get("/")
 def home():
     return {

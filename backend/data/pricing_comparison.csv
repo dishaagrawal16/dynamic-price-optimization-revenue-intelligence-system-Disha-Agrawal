@@ -1,0 +1,6 @@
+Category,Competitor,Competitor_Average_Price,Competitor_Min_Price,Competitor_Max_Price,Competitor_Product_Count,Category_Name,Our_Average_Price,Our_Average_Final_Price,Our_Average_Demand,Total_Demand,Total_Revenue,Price_Gap,Price_Gap_Percent,Comparable,Market_Position
+Beauty,Nykaa,505.25,66.0,2159.0,20,Beauty,252.74,206.37,149.34,75416,12889587.52,-298.88,-59.16,True,Below Competitor
+Books,Crossword,481.63,320.0,856.0,19,Books,259.12,208.14,140.72,75146,13273262.2,-273.49,-56.78,True,Below Competitor
+Clothing,Myntra,834.52,262.0,1439.0,48,Clothing,263.12,217.17,125.48,66631,11761447.48,-617.36,-73.98,True,Below Competitor
+Electronics,Croma,66917.67,34999.0,174990.0,21,Electronics,251.65,201.73,131.73,65604,11038519.82,,,False,Insufficient Comparable Data
+Sports,Decathlon,1339.0,99.0,5999.0,20,Sports,258.62,208.69,130.07,67639,11405117.25,-1130.31,-84.41,True,Below Competitor

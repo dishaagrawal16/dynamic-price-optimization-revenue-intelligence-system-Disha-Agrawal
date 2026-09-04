@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,7 +8,6 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import { getMonthlyRevenue } from "../services/dashboardService";
 const monthNames = [
   "",
   "Jan",
@@ -26,40 +24,21 @@ const monthNames = [
   "Dec",
 ];
 
-function RevenueChart() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    fetchRevenue();
-  }, []);
-
-  const fetchRevenue = async () => {
-    try {
-      const response = await getMonthlyRevenue();
-
-      const formattedData = response.map((item) => ({
-        month: monthNames[item.month],
-        revenue: item.revenue,
-      }));
-
-      setData(formattedData);
-    } catch (error) {
-      console.error("Error fetching monthly revenue:", error);
-    }
-  };
+function RevenueChart({ data }) {
+  const formattedData = data.map((item) => ({
+    month: monthNames[item.month],
+    revenue: item.revenue,
+  }));
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6">
       <h2 className="text-xl font-bold mb-4">Revenue Trend</h2>
 
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data}>
+        <LineChart data={formattedData}>
           <CartesianGrid strokeDasharray="3 3" />
-
           <XAxis dataKey="month" />
-
           <YAxis />
-
           <Tooltip />
 
           <Line

@@ -1,24 +1,6 @@
-import { useEffect, useState } from "react";
-import { getRecentProducts } from "../../services/dashboardService";
-
-function RecentProducts() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetchRecentProducts();
-  }, []);
-
-  const fetchRecentProducts = async () => {
-    try {
-      const data = await getRecentProducts();
-      setProducts(data);
-    } catch (error) {
-      console.error("Error fetching recent products:", error);
-    }
-  };
-
+function RecentProducts({ data }) {
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6">
+    <div className="bg-white rounded-2xl shadow-md p-6 overflow-x-auto">
       <h2 className="text-xl font-bold mb-4">
         Recent Products
       </h2>
@@ -34,7 +16,7 @@ function RecentProducts() {
         </thead>
 
         <tbody>
-          {products.map((product) => (
+          {data.map((product) => (
             <tr key={product.product_id} className="border-b">
               <td className="py-2">{product.product_id}</td>
               <td>{product.category}</td>

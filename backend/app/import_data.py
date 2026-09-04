@@ -5,7 +5,7 @@ from datetime import datetime
 from app.database import SessionLocal
 from app.models.product import Product
 
-df = pd.read_csv("ecommerce_dataset_updated.csv")
+df = pd.read_csv("data/ecommerce_dataset_updated.csv")
 
 db: Session = SessionLocal()
 
