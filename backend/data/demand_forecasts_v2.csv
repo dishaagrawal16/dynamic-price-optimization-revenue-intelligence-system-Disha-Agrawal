@@ -1,0 +1,15 @@
+Date,Forecast_Demand,Seasonal_Factor,Trend,Horizon,Reliability_Score
+2024-11-22,2445.71,1.244,Stable,Short Term,79.05
+2024-11-23,2445.71,1.244,Stable,Short Term,79.05
+2024-11-24,2445.71,1.244,Stable,Short Term,79.05
+2024-11-25,2445.71,1.244,Stable,Short Term,79.05
+2024-11-26,2445.71,1.244,Stable,Short Term,79.05
+2024-11-27,2445.71,1.244,Stable,Short Term,79.05
+2024-11-28,2445.71,1.244,Stable,Short Term,79.05
+2024-12-05,13762.06,1.0,Stable,Medium Term,79.05
+2024-12-12,13762.06,1.0,Stable,Medium Term,79.05
+2024-12-19,13762.06,1.0,Stable,Medium Term,79.05
+2024-12-26,13762.06,1.0,Stable,Medium Term,79.05
+2025-01-21,51076.89,0.866,Stable,Long Term,79.05
+2025-02-21,49130.55,0.833,Stable,Long Term,79.05
+2025-03-21,57741.66,0.979,Stable,Long Term,79.05
