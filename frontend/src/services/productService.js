@@ -1,7 +1,7 @@
 import api from "./api";
 
 export const getProducts = async (skip = 0, limit = 20) => {
-  const response = await api.get(`/products?skip=${skip}&limit=${limit}`);
+  const response = await api.get(`/products/?skip=${skip}&limit=${limit}`);
   return response.data;
 };
 

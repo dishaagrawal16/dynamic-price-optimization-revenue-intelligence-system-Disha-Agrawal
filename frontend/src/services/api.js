@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    "https://dynamic-price-optimization-revenue-intelligence-production.up.railway.app",
 });
 
-// Add JWT token automatically to every request
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -16,8 +17,3 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
-
-export const getMonthlyRevenue = async () => {
-    const response = await api.get("/dashboard/monthly-revenue");
-    return response.data;
-};
