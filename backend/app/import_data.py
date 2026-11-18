@@ -1,47 +1,61 @@
+"""
+Load data/ecommerce_dataset_updated.csv into the products table.
+
+Run from the backend folder:
+    python -m app.import_data
+"""
+from datetime import datetime
+from pathlib import Path
+
 import pandas as pd
 from sqlalchemy.orm import Session
-from datetime import datetime
 
-from app.database import SessionLocal
-from app.models.product import Product
+from app.database import Base, SessionLocal, engine
+from app.models import Product, User  # noqa: F401 (registers tables)
 
-df = pd.read_csv("data/ecommerce_dataset_updated.csv")
+CSV_PATH = Path(__file__).resolve().parent.parent / "data" / "ecommerce_dataset_updated.csv"
+
+
+def parse_date(value):
+    # Convert all dates to YYYY-MM-DD
+    value = str(value).strip()
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return datetime.strptime(value, "%d-%m-%Y").date()
+
+
+Base.metadata.create_all(bind=engine)
+
+df = pd.read_csv(CSV_PATH)
 
 db: Session = SessionLocal()
 
-# Clear old data to avoid duplicates
-db.query(Product).delete()
-db.commit()
+try:
+    # Clear old data to avoid duplicates
+    db.query(Product).delete()
+    db.commit()
 
-for _, row in df.iterrows():
+    products = [
+        Product(
+            product_id=str(row["Product_ID"]),
+            category=row["Category"],
+            original_price=float(row["Price (Rs.)"]),
+            discount=float(row["Discount (%)"]),
+            final_price=float(row["Final_Price(Rs.)"]),
+            payment_method=row["Payment_Method"],
+            purchase_date=parse_date(row["Purchase_Date"]),
+        )
+        for _, row in df.iterrows()
+    ]
 
-    # Read the date from CSV
-    date = str(row["Purchase_Date"]).strip()
+    # Insert in batches (much faster over the internet to TiDB Cloud)
+    batch_size = 500
+    for i in range(0, len(products), batch_size):
+        db.bulk_save_objects(products[i:i + batch_size])
+        db.commit()
+        print(f"  inserted {min(i + batch_size, len(products))}/{len(products)}")
 
-    # Convert all dates to YYYY-MM-DD
-    try:
-      purchase_date = datetime.strptime(
-        date, "%Y-%m-%d"
-        ).date()
-    except ValueError:
-        purchase_date = datetime.strptime(
-            date, "%d-%m-%Y"
-        ).date()
-
-    # Create Product object
-    product = Product(
-        product_id=str(row["Product_ID"]),
-        category=row["Category"],
-        original_price=float(row["Price (Rs.)"]),
-        discount=float(row["Discount (%)"]),
-        final_price=float(row["Final_Price(Rs.)"]),
-        payment_method=row["Payment_Method"],
-        purchase_date=purchase_date
-    )
-
-    db.add(product)
-
-db.commit()
-db.close()
-
-print("✅ Dataset Imported Successfully!")
+    print(f"✅ Dataset Imported Successfully! ({len(products)} rows)")
+finally:
+    db.close()
